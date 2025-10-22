@@ -236,53 +236,48 @@ function HorizontalScrollFeatures() {
   const secondRow = features.slice(5, 10);
 
   // First row: scroll from left (0%) to right (-100% to show all cards)
-  const x1 = useTransform(scrollYProgress, [0.2, 0.8], ["0%", "-100%"]);
+  const x1 = useTransform(scrollYProgress, [0.2, 0.6], ["0%", "-100%"]);
   
   // Second row: scroll from right (0%) to left (100%)
-  const x2 = useTransform(scrollYProgress, [0.2, 0.8], ["0%", "100%"]);
+  const x2 = useTransform(scrollYProgress, [0.2, 0.6], ["0%", "100%"]);
 
-  // Gradient transition: starts at 0.2 and completes at 0.8 (throughout horizontal scroll)
-  const gradientOpacity = useTransform(scrollYProgress, [0.2, 0.8], [0, 1]);
+  // Gradient transition: starts at 0.2 and completes at 0.6 (throughout horizontal scroll)
+  const gradientOpacity = useTransform(scrollYProgress, [0.2, 0.6], [0, 1]);
   
-  // Text gradient fade out: starts at 0.4 and completes at 0.7
-  const textGradientOpacity = useTransform(scrollYProgress, [0.4, 0.7], [1, 0]);
+  // Text gradient fade out: starts at 0.4 and completes at 0.55
+  const textGradientOpacity = useTransform(scrollYProgress, [0.4, 0.55], [1, 0]);
   
-  // Text white fade in: starts at 0.4 and completes at 0.7
-  const textWhiteOpacity = useTransform(scrollYProgress, [0.4, 0.7], [0, 1]);
+  // Text white fade in: starts at 0.4 and completes at 0.55
+  const textWhiteOpacity = useTransform(scrollYProgress, [0.4, 0.55], [0, 1]);
+
+  // Feature cards fade out after horizontal scroll completes
+  const cardsOpacity = useTransform(scrollYProgress, [0.6, 0.75], [1, 0]);
+
+  // Heading moves up after horizontal scroll completes
+  const headingY = useTransform(scrollYProgress, [0.6, 0.85], ["0vh", "-100vh"]);
 
   return (
     <section 
       ref={containerRef} 
       id="features" 
       className="relative"
-      style={{ height: "350vh" }}
+      style={{ height: "400vh" }}
     >
-      {/* Black background */}
-      <div className="absolute inset-0 bg-white dark:bg-black" />
+      {/* Fixed gradient background that stays in place */}
+      <div className="fixed inset-0 bg-gradient-to-br from-blue-950 via-purple-950 to-pink-950" style={{ opacity: 1 }} />
       
-      {/* Gradient overlay that fades in during scroll */}
-      <motion.div 
-        style={{ opacity: gradientOpacity }}
-        className="absolute inset-0 bg-gradient-to-br from-blue-950 via-purple-950 to-pink-950"
-      />
-      
-      {/* Grid pattern overlay */}
-      <motion.div 
-        style={{ opacity: gradientOpacity }}
-        className="absolute inset-0 opacity-20"
-      >
+      {/* Grid pattern overlay - fixed */}
+      <div className="fixed inset-0 opacity-20">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-10" />
-      </motion.div>
+      </div>
 
       <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center py-12 relative z-10">
-        <div className="container mx-auto px-6 mb-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center relative"
-          >
+        {/* Heading that scrolls up */}
+        <motion.div 
+          style={{ y: headingY }}
+          className="container mx-auto px-6 mb-8"
+        >
+          <div className="text-center relative">
             <div className="relative">
               {/* Gradient text that fades out */}
               <motion.h2 
@@ -318,10 +313,11 @@ function HorizontalScrollFeatures() {
                 Everything you need to run a modern hospital, all in one platform
               </motion.p>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
 
-        <div className="space-y-6">
+        {/* Feature cards that fade out */}
+        <motion.div style={{ opacity: cardsOpacity }} className="space-y-6">
           {/* First Row - Scrolls Left to Right */}
           <motion.div style={{ x: x1 }} className="flex gap-6 px-6">
             {firstRow.map((feature, index) => {
@@ -375,7 +371,7 @@ function HorizontalScrollFeatures() {
               );
             })}
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -388,8 +384,9 @@ function ImmersiveSection() {
     offset: ["start end", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, 0]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  // Content scrolls up from below
+  const y = useTransform(scrollYProgress, [0, 0.5], ["100vh", "0vh"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 1]);
 
   return (
     <section ref={ref} className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -397,38 +394,31 @@ function ImmersiveSection() {
         style={{ y, opacity }}
         className="relative z-10 text-center px-6 max-w-5xl"
       >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-6xl md:text-8xl font-bold mb-8 text-white" data-testid="heading-immersive">
-            Redefining{" "}
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Healthcare
-            </span>
-            {" "}Management
-          </h2>
-          <p className="text-2xl md:text-3xl text-gray-300 leading-relaxed mb-12" data-testid="text-immersive-desc">
-            Bringing everything together in one powerful, customizable platform. 
-            Unified workflows, real-time insights, and complete control.
-          </p>
-          <div className="flex flex-wrap justify-center gap-6 text-gray-400">
-            <div className="flex items-center gap-2" data-testid="feature-unified">
-              <CheckCircle2 className="w-6 h-6 text-blue-400" />
-              <span className="text-lg">Fully Integrated Platform</span>
-            </div>
-            <div className="flex items-center gap-2" data-testid="feature-realtime">
-              <CheckCircle2 className="w-6 h-6 text-purple-400" />
-              <span className="text-lg">Real-Time Updates</span>
-            </div>
-            <div className="flex items-center gap-2" data-testid="feature-scalable">
-              <CheckCircle2 className="w-6 h-6 text-pink-400" />
-              <span className="text-lg">Infinitely Scalable</span>
-            </div>
+        <h2 className="text-6xl md:text-8xl font-bold mb-8 text-white" data-testid="heading-immersive">
+          Redefining{" "}
+          <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            Healthcare
+          </span>
+          {" "}Management
+        </h2>
+        <p className="text-2xl md:text-3xl text-gray-300 leading-relaxed mb-12" data-testid="text-immersive-desc">
+          Bringing everything together in one powerful, customizable platform. 
+          Unified workflows, real-time insights, and complete control.
+        </p>
+        <div className="flex flex-wrap justify-center gap-6 text-gray-400">
+          <div className="flex items-center gap-2" data-testid="feature-unified">
+            <CheckCircle2 className="w-6 h-6 text-blue-400" />
+            <span className="text-lg">Fully Integrated Platform</span>
           </div>
-        </motion.div>
+          <div className="flex items-center gap-2" data-testid="feature-realtime">
+            <CheckCircle2 className="w-6 h-6 text-purple-400" />
+            <span className="text-lg">Real-Time Updates</span>
+          </div>
+          <div className="flex items-center gap-2" data-testid="feature-scalable">
+            <CheckCircle2 className="w-6 h-6 text-pink-400" />
+            <span className="text-lg">Infinitely Scalable</span>
+          </div>
+        </div>
       </motion.div>
     </section>
   );
