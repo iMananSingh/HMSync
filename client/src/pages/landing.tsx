@@ -241,14 +241,34 @@ function HorizontalScrollFeatures() {
   // Second row: scroll from right (0%) to left (100%)
   const x2 = useTransform(scrollYProgress, [0.2, 0.8], ["0%", "100%"]);
 
+  // Gradient transition: starts at 0.5 and completes at 0.8 (during horizontal scroll)
+  const gradientOpacity = useTransform(scrollYProgress, [0.5, 0.8], [0, 1]);
+
   return (
     <section 
       ref={containerRef} 
       id="features" 
-      className="relative bg-white dark:bg-gray-950"
+      className="relative"
       style={{ height: "350vh" }}
     >
-      <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center py-12">
+      {/* Black background */}
+      <div className="absolute inset-0 bg-white dark:bg-black" />
+      
+      {/* Gradient overlay that fades in during scroll */}
+      <motion.div 
+        style={{ opacity: gradientOpacity }}
+        className="absolute inset-0 bg-gradient-to-br from-blue-950 via-purple-950 to-pink-950"
+      />
+      
+      {/* Grid pattern overlay */}
+      <motion.div 
+        style={{ opacity: gradientOpacity }}
+        className="absolute inset-0 opacity-20"
+      >
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-10" />
+      </motion.div>
+
+      <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center py-12 relative z-10">
         <div className="container mx-auto px-6 mb-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -322,35 +342,6 @@ function HorizontalScrollFeatures() {
           </motion.div>
         </div>
       </div>
-    </section>
-  );
-}
-
-function GradientTransitionZone() {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-
-  // Transition from black to gradient
-  const gradientOpacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
-
-  return (
-    <section ref={ref} className="relative h-[100vh] bg-black">
-      {/* Gradient overlay that fades in */}
-      <motion.div 
-        style={{ opacity: gradientOpacity }}
-        className="absolute inset-0 bg-gradient-to-br from-blue-950 via-purple-950 to-pink-950"
-      />
-      
-      {/* Grid pattern overlay */}
-      <motion.div 
-        style={{ opacity: gradientOpacity }}
-        className="absolute inset-0 opacity-20"
-      >
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-10" />
-      </motion.div>
     </section>
   );
 }
@@ -744,7 +735,6 @@ export default function LandingPage() {
       <ThemeToggle />
       <HeroSection />
       <HorizontalScrollFeatures />
-      <GradientTransitionZone />
       <ImmersiveSection />
       <WhyChooseSection />
       <ContactSection />
