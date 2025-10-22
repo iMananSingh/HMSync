@@ -326,6 +326,35 @@ function HorizontalScrollFeatures() {
   );
 }
 
+function GradientTransitionZone() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  // Transition from black to gradient
+  const gradientOpacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+
+  return (
+    <section ref={ref} className="relative h-[100vh] bg-black">
+      {/* Gradient overlay that fades in */}
+      <motion.div 
+        style={{ opacity: gradientOpacity }}
+        className="absolute inset-0 bg-gradient-to-br from-blue-950 via-purple-950 to-pink-950"
+      />
+      
+      {/* Grid pattern overlay */}
+      <motion.div 
+        style={{ opacity: gradientOpacity }}
+        className="absolute inset-0 opacity-20"
+      >
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-10" />
+      </motion.div>
+    </section>
+  );
+}
+
 function ImmersiveSection() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -333,17 +362,13 @@ function ImmersiveSection() {
     offset: ["start end", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], [100, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
-    <section ref={ref} className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-950 via-purple-950 to-pink-950">
-      <motion.div style={{ y }} className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-10" />
-      </motion.div>
-
+    <section ref={ref} className="relative h-screen flex items-center justify-center overflow-hidden">
       <motion.div 
-        style={{ opacity }}
+        style={{ y, opacity }}
         className="relative z-10 text-center px-6 max-w-5xl"
       >
         <motion.div
@@ -719,6 +744,7 @@ export default function LandingPage() {
       <ThemeToggle />
       <HeroSection />
       <HorizontalScrollFeatures />
+      <GradientTransitionZone />
       <ImmersiveSection />
       <WhyChooseSection />
       <ContactSection />
