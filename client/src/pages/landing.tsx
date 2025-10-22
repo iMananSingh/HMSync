@@ -241,8 +241,8 @@ function HorizontalScrollFeatures() {
   // Second row: scroll from right (0%) to left (100%)
   const x2 = useTransform(scrollYProgress, [0.2, 0.6], ["0%", "100%"]);
 
-  // Gradient transition: starts at 0.2 and completes at 0.6 (throughout horizontal scroll)
-  const gradientOpacity = useTransform(scrollYProgress, [0.2, 0.6], [0, 1]);
+  // Gradient transition: fades in at start of scroll, stays during scroll, fades out at end
+  const gradientOpacity = useTransform(scrollYProgress, [0.2, 0.6, 0.85, 1], [0, 1, 1, 0]);
   
   // Text gradient fade out: starts at 0.4 and completes at 0.55
   const textGradientOpacity = useTransform(scrollYProgress, [0.4, 0.55], [1, 0]);
@@ -263,13 +263,19 @@ function HorizontalScrollFeatures() {
       className="relative"
       style={{ height: "400vh" }}
     >
-      {/* Fixed gradient background that stays in place */}
-      <div className="fixed inset-0 bg-gradient-to-br from-blue-950 via-purple-950 to-pink-950" style={{ opacity: 1 }} />
+      {/* Fixed gradient background that fades in and out with scroll */}
+      <motion.div 
+        style={{ opacity: gradientOpacity }} 
+        className="fixed inset-0 bg-gradient-to-br from-blue-950 via-purple-950 to-pink-950 pointer-events-none" 
+      />
       
-      {/* Grid pattern overlay - fixed */}
-      <div className="fixed inset-0 opacity-20">
+      {/* Grid pattern overlay - fixed, fades with background */}
+      <motion.div 
+        style={{ opacity: useTransform(gradientOpacity, [0, 1], [0, 0.2]) }} 
+        className="fixed inset-0 pointer-events-none"
+      >
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-10" />
-      </div>
+      </motion.div>
 
       <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center py-12 relative z-10">
         {/* Heading that scrolls up */}
