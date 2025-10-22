@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
     // Development mode: use Vite dev server
     const vite = await createViteServer({
       server: { middlewareMode: true },
-      appType: "custom",
+      appType: "spa",
     });
 
     app.use(vite.middlewares);
