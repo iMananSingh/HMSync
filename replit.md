@@ -29,6 +29,14 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+**October 22, 2025** - Codebase Cleanup
+- Removed 40 unused UI components to streamline the project
+- Kept only essential components: button, input, textarea, card, toast, toaster
+- Removed unused use-mobile hook
+- Verified landing page functionality after cleanup
+- No database, storage, or API route files present (pure frontend landing page)
+- Architect-reviewed and confirmed all changes maintain full functionality
+
 **October 22, 2025** - HMSync Landing Page Creation
 - Created professional SaaS landing page with HMSync branding
 - Implemented Framer Motion animations with parallax effects
@@ -130,5 +138,19 @@ The landing page is a single-page React 18 application built with TypeScript. It
 - **PostCSS**: CSS processing
 - **Autoprefixer**: CSS vendor prefixing
 
-### Note
-The original HMS application code (patient management, billing, etc.) has been preserved in the codebase for reference. The current deployment shows only the HMSync landing page for marketing purposes.
+## Project Structure
+
+The project contains only the essential files needed for the HMSync landing page:
+
+**Client (Frontend):**
+- `/client/src/components/ui/` - Minimal UI components (button, input, textarea, card, toast, toaster)
+- `/client/src/components/` - Theme provider and toggle
+- `/client/src/pages/landing.tsx` - Main landing page component
+- `/client/src/hooks/` - Custom hooks (use-toast)
+- `/client/src/lib/` - Utility functions
+
+**Server:**
+- `/server/index.ts` - Express server with Vite middleware for development
+
+**Configuration:**
+- Standard TypeScript, Vite, Tailwind, and PostCSS configuration files
