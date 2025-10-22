@@ -244,8 +244,8 @@ function HorizontalScrollFeatures() {
   // Gradient transition: starts at 0.2 and completes at 0.8 (throughout horizontal scroll)
   const gradientOpacity = useTransform(scrollYProgress, [0.2, 0.8], [0, 1]);
   
-  // Text color transition: completes earlier at 0.6
-  const textWhiteOpacity = useTransform(scrollYProgress, [0.2, 0.6], [0, 1]);
+  // Text color transition: starts at 0.4 and completes at 0.7 (gradual transition during scroll)
+  const textWhiteOpacity = useTransform(scrollYProgress, [0.4, 0.7], [0, 1]);
 
   return (
     <section 
