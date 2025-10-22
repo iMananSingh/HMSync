@@ -244,7 +244,10 @@ function HorizontalScrollFeatures() {
   // Gradient transition: starts at 0.2 and completes at 0.8 (throughout horizontal scroll)
   const gradientOpacity = useTransform(scrollYProgress, [0.2, 0.8], [0, 1]);
   
-  // Text color transition: starts at 0.4 and completes at 0.7 (gradual transition during scroll)
+  // Text gradient fade out: starts at 0.4 and completes at 0.7
+  const textGradientOpacity = useTransform(scrollYProgress, [0.4, 0.7], [1, 0]);
+  
+  // Text white fade in: starts at 0.4 and completes at 0.7
   const textWhiteOpacity = useTransform(scrollYProgress, [0.4, 0.7], [0, 1]);
 
   return (
@@ -278,34 +281,43 @@ function HorizontalScrollFeatures() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center"
+            className="text-center relative"
           >
-            <motion.h2 
-              style={{ 
-                color: useTransform(
-                  textWhiteOpacity,
-                  [0, 1],
-                  ['transparent', 'rgb(255, 255, 255)']
-                )
-              }}
-              className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text"
-              data-testid="heading-features"
-            >
-              Powerful Features
-            </motion.h2>
-            <motion.p 
-              style={{ 
-                color: useTransform(
-                  textWhiteOpacity,
-                  [0, 1],
-                  ['rgb(75, 85, 99)', 'rgb(255, 255, 255)']
-                )
-              }}
-              className="text-lg max-w-3xl mx-auto" 
-              data-testid="text-features-desc"
-            >
-              Everything you need to run a modern hospital, all in one platform
-            </motion.p>
+            <div className="relative">
+              {/* Gradient text that fades out */}
+              <motion.h2 
+                style={{ opacity: textGradientOpacity }}
+                className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent"
+                data-testid="heading-features"
+              >
+                Powerful Features
+              </motion.h2>
+              {/* White text that fades in */}
+              <motion.h2 
+                style={{ opacity: textWhiteOpacity }}
+                className="text-4xl md:text-6xl font-bold mb-4 text-white absolute top-0 left-0 right-0"
+              >
+                Powerful Features
+              </motion.h2>
+            </div>
+            
+            <div className="relative">
+              {/* Gray text that fades out */}
+              <motion.p 
+                style={{ opacity: textGradientOpacity }}
+                className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto" 
+                data-testid="text-features-desc"
+              >
+                Everything you need to run a modern hospital, all in one platform
+              </motion.p>
+              {/* White text that fades in */}
+              <motion.p 
+                style={{ opacity: textWhiteOpacity }}
+                className="text-lg text-white max-w-3xl mx-auto absolute top-0 left-0 right-0"
+              >
+                Everything you need to run a modern hospital, all in one platform
+              </motion.p>
+            </div>
           </motion.div>
         </div>
 
