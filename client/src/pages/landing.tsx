@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, useSpring } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -28,7 +28,8 @@ import {
   Sparkles,
   Zap,
   Lock,
-  Settings
+  Settings,
+  ChevronDown
 } from "lucide-react";
 
 const contactFormSchema = z.object({
@@ -45,99 +46,396 @@ const features = [
   {
     icon: Users,
     title: "Patient Management",
-    description: "Complete patient registration, records, and history tracking",
+    description: "Complete patient registration, records, and history tracking with advanced search capabilities",
+    color: "from-blue-500 to-cyan-500"
   },
   {
     icon: Stethoscope,
     title: "Doctor Management",
-    description: "Manage doctor profiles, schedules, and earnings",
+    description: "Comprehensive doctor profiles, schedules, earnings tracking, and performance analytics",
+    color: "from-purple-500 to-pink-500"
   },
   {
     icon: Calendar,
     title: "OPD Management",
-    description: "Streamline outpatient appointments and consultations",
+    description: "Streamline outpatient appointments, consultations, and follow-ups with automated reminders",
+    color: "from-green-500 to-emerald-500"
   },
   {
     icon: TestTube,
     title: "Pathology Lab",
-    description: "Order tests, track results, and generate reports",
+    description: "Order tests, track results, generate reports, and integrate with lab equipment seamlessly",
+    color: "from-orange-500 to-red-500"
   },
   {
     icon: BedDouble,
     title: "In-Patient Admissions",
-    description: "Manage admissions, room transfers, and discharges",
+    description: "Manage admissions, room transfers, discharges, and bed allocation with real-time updates",
+    color: "from-indigo-500 to-blue-500"
   },
   {
     icon: FileText,
     title: "Billing & Payments",
-    description: "Comprehensive billing with multiple payment methods",
+    description: "Comprehensive billing with multiple payment methods, insurance claims, and financial reporting",
+    color: "from-teal-500 to-cyan-500"
   },
   {
     icon: BarChart3,
     title: "Analytics & Reports",
-    description: "Real-time insights and financial summaries",
+    description: "Real-time insights, financial summaries, occupancy rates, and customizable dashboards",
+    color: "from-pink-500 to-rose-500"
   },
   {
     icon: Shield,
     title: "Audit Logs",
-    description: "Complete activity tracking for compliance",
+    description: "Complete activity tracking for compliance, security, and operational transparency",
+    color: "from-violet-500 to-purple-500"
   },
   {
     icon: Database,
     title: "Backup & Restore",
-    description: "Automated backups with one-click restore",
+    description: "Automated backups with one-click restore, ensuring your data is always protected",
+    color: "from-amber-500 to-yellow-500"
   },
 ];
 
-const whyChoose = [
-  {
-    icon: Settings,
-    title: "Fully Customizable",
-    description: "Tailor every aspect to match your hospital's unique workflow",
-  },
-  {
-    icon: Lock,
-    title: "Owner-First Control",
-    description: "Complete control over your data and system configuration",
-  },
-  {
-    icon: Zap,
-    title: "Advanced Features",
-    description: "Role-based access, multi-user support, and real-time updates",
-  },
-  {
-    icon: Sparkles,
-    title: "Modern Interface",
-    description: "Beautiful, intuitive design that your staff will love",
-  },
-];
+function HeroSection() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
 
-function AnimatedSection({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={className}
-    >
-      {children}
-    </motion.div>
+    <div ref={containerRef} className="relative h-screen w-full overflow-hidden">
+      {/* Animated background layers */}
+      <motion.div 
+        style={{ y: y1 }}
+        className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-blue-950 dark:via-purple-950 dark:to-pink-950"
+      />
+      
+      <motion.div 
+        style={{ y: y2 }}
+        className="absolute inset-0 opacity-30"
+      >
+        <div className="absolute top-20 left-20 w-96 h-96 bg-blue-400/20 dark:bg-blue-600/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-400/20 dark:bg-purple-600/20 rounded-full blur-3xl" />
+      </motion.div>
+
+      <motion.div 
+        style={{ y: y3, opacity, scale }}
+        className="relative h-full flex flex-col items-center justify-center px-6 text-center"
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mb-6 inline-flex items-center gap-2 px-4 py-2 bg-white/60 dark:bg-black/40 backdrop-blur-md rounded-full border border-white/20"
+          data-testid="badge-next-gen"
+        >
+          <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+          <span className="text-sm font-medium bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+            Next-Generation Hospital Management
+          </span>
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="text-7xl md:text-9xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent"
+          data-testid="heading-hmsync"
+        >
+          HMSync
+        </motion.h1>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-3xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white max-w-4xl"
+          data-testid="heading-tagline"
+        >
+          Advanced Control. Owner-First.{" "}
+          <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+            Fully Customizable.
+          </span>
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl leading-relaxed"
+          data-testid="text-description"
+        >
+          The complete hospital management system designed for modern healthcare facilities. 
+          Take control with advanced features, customizable workflows, and unparalleled flexibility.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="flex flex-col sm:flex-row gap-4 mb-16"
+        >
+          <Button 
+            size="lg" 
+            className="text-lg px-8 py-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl shadow-blue-500/50 dark:shadow-blue-400/30 group"
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            data-testid="button-request-demo"
+          >
+            Request a Demo
+            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Button>
+          <Button 
+            size="lg" 
+            variant="outline" 
+            className="text-lg px-8 py-6 border-2 bg-white/60 dark:bg-black/40 backdrop-blur-md hover:bg-white dark:hover:bg-black/60"
+            onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
+            data-testid="button-explore-features"
+          >
+            Explore Features
+          </Button>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1, repeat: Infinity, repeatType: "reverse" }}
+          className="absolute bottom-10"
+        >
+          <ChevronDown className="w-8 h-8 text-gray-400" />
+        </motion.div>
+      </motion.div>
+    </div>
   );
 }
 
-export default function LandingPage() {
-  const { scrollYProgress } = useScroll();
-  const { toast } = useToast();
-  const heroRef = useRef(null);
-  
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+function HorizontalScrollFeatures() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
 
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
+
+  return (
+    <section ref={containerRef} id="features" className="py-32 overflow-hidden bg-white dark:bg-gray-950">
+      <div className="container mx-auto px-6 mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent" data-testid="heading-features">
+            Powerful Features
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto" data-testid="text-features-desc">
+            Everything you need to run a modern hospital, all in one platform
+          </p>
+        </motion.div>
+      </div>
+
+      <motion.div style={{ x }} className="flex gap-8 px-6">
+        {[...features, ...features].map((feature, index) => {
+          const Icon = feature.icon;
+          return (
+            <motion.div
+              key={index}
+              className="flex-shrink-0 w-[400px]"
+              whileHover={{ scale: 1.05, y: -10 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <Card className="h-full p-8 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-2 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" data-testid={`card-feature-${index}`}>
+                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} p-4 mb-6 shadow-lg`}>
+                  <Icon className="w-full h-full text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white" data-testid={`text-feature-title-${index}`}>
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed" data-testid={`text-feature-desc-${index}`}>
+                  {feature.description}
+                </p>
+              </Card>
+            </motion.div>
+          );
+        })}
+      </motion.div>
+    </section>
+  );
+}
+
+function ImmersiveSection() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+
+  return (
+    <section ref={ref} className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-950 via-purple-950 to-pink-950">
+      <motion.div style={{ y }} className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-10" />
+      </motion.div>
+
+      <motion.div 
+        style={{ opacity }}
+        className="relative z-10 text-center px-6 max-w-5xl"
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-6xl md:text-8xl font-bold mb-8 text-white" data-testid="heading-immersive">
+            Redefining{" "}
+            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Healthcare
+            </span>
+            {" "}Management
+          </h2>
+          <p className="text-2xl md:text-3xl text-gray-300 leading-relaxed mb-12" data-testid="text-immersive-desc">
+            Bringing everything together in one powerful, customizable platform. 
+            Unified workflows, real-time insights, and complete control.
+          </p>
+          <div className="flex flex-wrap justify-center gap-6 text-gray-400">
+            <div className="flex items-center gap-2" data-testid="feature-unified">
+              <CheckCircle2 className="w-6 h-6 text-blue-400" />
+              <span className="text-lg">Fully Integrated Platform</span>
+            </div>
+            <div className="flex items-center gap-2" data-testid="feature-realtime">
+              <CheckCircle2 className="w-6 h-6 text-purple-400" />
+              <span className="text-lg">Real-Time Updates</span>
+            </div>
+            <div className="flex items-center gap-2" data-testid="feature-scalable">
+              <CheckCircle2 className="w-6 h-6 text-pink-400" />
+              <span className="text-lg">Infinitely Scalable</span>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
+
+function WhyChooseSection() {
+  const whyChoose = [
+    {
+      icon: Settings,
+      title: "Fully Customizable",
+      description: "Tailor every aspect to match your hospital's unique workflow and requirements",
+      gradient: "from-blue-500 to-cyan-500"
+    },
+    {
+      icon: Lock,
+      title: "Owner-First Control",
+      description: "Complete control over your data, system configuration, and user management",
+      gradient: "from-purple-500 to-pink-500"
+    },
+    {
+      icon: Zap,
+      title: "Advanced Features",
+      description: "Role-based access, multi-user support, real-time updates, and powerful automation",
+      gradient: "from-green-500 to-emerald-500"
+    },
+    {
+      icon: Sparkles,
+      title: "Modern Interface",
+      description: "Beautiful, intuitive design with dark mode support that your staff will love using",
+      gradient: "from-orange-500 to-red-500"
+    },
+  ];
+
+  return (
+    <section className="py-32 bg-gray-50 dark:bg-gray-900">
+      <div className="container mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-20"
+        >
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-why-choose">
+            Why Choose <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">HMSync</span>
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto" data-testid="text-why-choose-desc">
+            Built for hospital owners who demand excellence and control
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {whyChoose.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.02, y: -5 }}
+              >
+                <Card className="p-10 h-full bg-white dark:bg-gray-800 border-2 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" data-testid={`card-why-${index}`}>
+                  <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${item.gradient} p-4 mb-6 shadow-lg`}>
+                    <Icon className="w-full h-full text-white" />
+                  </div>
+                  <h3 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white" data-testid={`text-why-title-${index}`}>
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed" data-testid={`text-why-desc-${index}`}>
+                    {item.description}
+                  </p>
+                </Card>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="mt-16 text-center"
+        >
+          <Card className="p-12 bg-gradient-to-br from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white max-w-4xl mx-auto shadow-2xl" data-testid="card-custom-quote">
+            <h3 className="text-4xl font-bold mb-4" data-testid="heading-custom-pricing">Get Custom Pricing</h3>
+            <p className="text-xl mb-8 opacity-90" data-testid="text-custom-pricing-desc">
+              Every hospital is unique. Let's discuss your specific needs and create a tailored solution.
+            </p>
+            <Button 
+              size="lg" 
+              className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-6"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              data-testid="button-contact-sales"
+            >
+              Contact Sales
+              <ArrowRight className="ml-2" />
+            </Button>
+          </Card>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function ContactSection() {
+  const { toast } = useToast();
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
@@ -152,463 +450,228 @@ export default function LandingPage() {
   const onSubmit = (data: ContactFormData) => {
     console.log("Contact form submitted:", data);
     toast({
-      title: "Request Submitted!",
+      title: "Demo Request Received!",
       description: "We'll get back to you within 24 hours.",
     });
     form.reset();
   };
 
-  useEffect(() => {
-    document.documentElement.style.scrollBehavior = "smooth";
-    return () => {
-      document.documentElement.style.scrollBehavior = "auto";
-    };
-  }, []);
-
   return (
-    <div className="min-h-screen bg-background">
-      {/* Theme Toggle - Fixed Position */}
-      <div className="fixed top-6 right-6 z-50">
-        <ThemeToggle />
-      </div>
-
-      {/* Hero Section with Parallax */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Animated Gradient Background */}
+    <section id="contact" className="py-32 bg-white dark:bg-gray-950">
+      <div className="container mx-auto px-6">
         <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/20 to-pink-600/20"
-          style={{ y: y1 }}
-        />
-        <motion.div
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-700/30 via-transparent to-transparent"
-          style={{ y: y2 }}
-        />
-        
-        {/* Grid Pattern Overlay */}
-        <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
-        
-        <motion.div
-          style={{ opacity }}
-          className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
         >
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-2 mb-8"
-          >
-            <Sparkles className="h-4 w-4 text-blue-500" />
-            <span className="text-sm font-medium text-blue-500">Next-Generation Hospital Management</span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600"
-          >
-            HMSync
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-2xl sm:text-3xl lg:text-4xl font-semibold mb-6 text-foreground"
-          >
-            Advanced Control. Owner-First. Fully Customizable.
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-lg sm:text-xl text-muted-foreground mb-12 max-w-3xl mx-auto"
-          >
-            The complete hospital management system designed for modern healthcare facilities. 
-            Take control with advanced features, customizable workflows, and unparalleled flexibility.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <Button
-              size="lg"
-              className="text-lg px-8 py-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-              data-testid="button-request-demo"
-            >
-              Request a Demo
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-lg px-8 py-6"
-              onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}
-              data-testid="button-explore-features"
-            >
-              Explore Features
-            </Button>
-          </motion.div>
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent" data-testid="heading-contact">
+            Request a Demo
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto" data-testid="text-contact-desc">
+            See HMSync in action and discover how it can transform your hospital operations
+          </p>
         </motion.div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
+        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-            className="w-6 h-10 border-2 border-foreground/20 rounded-full flex items-start justify-center p-2"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
           >
-            <motion.div className="w-1 h-2 bg-foreground/40 rounded-full" />
-          </motion.div>
-        </motion.div>
-      </section>
+            <Card className="p-10 h-full bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 border-2" data-testid="card-contact-info">
+              <h3 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white" data-testid="heading-get-in-touch">Get in Touch</h3>
+              
+              <div className="space-y-6">
+                <div className="flex items-start gap-4" data-testid="contact-email">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 p-3">
+                    <Mail className="w-full h-full text-white" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900 dark:text-white mb-1">Email</p>
+                    <p className="text-gray-600 dark:text-gray-400">sales@hmsync.com</p>
+                  </div>
+                </div>
 
-      {/* Problem/Solution Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-muted/30">
-        <div className="max-w-6xl mx-auto">
-          <AnimatedSection className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-              Hospital Management Simplified
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Stop struggling with outdated systems, fragmented workflows, and limited control. 
-              HMSync brings everything together in one powerful, customizable platform.
-            </p>
-          </AnimatedSection>
+                <div className="flex items-start gap-4" data-testid="contact-phone">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 p-3">
+                    <Phone className="w-full h-full text-white" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900 dark:text-white mb-1">Phone</p>
+                    <p className="text-gray-600 dark:text-gray-400">+1 (555) 123-4567</p>
+                  </div>
+                </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
-            <AnimatedSection>
-              <Card className="p-8 h-full border-red-500/20 bg-red-500/5">
-                <h3 className="text-2xl font-bold mb-4 text-red-600">Traditional Systems</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2" />
-                    <span className="text-muted-foreground">Disconnected modules and data silos</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2" />
-                    <span className="text-muted-foreground">Limited customization options</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2" />
-                    <span className="text-muted-foreground">No control over your own data</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2" />
-                    <span className="text-muted-foreground">Complex, outdated interfaces</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2" />
-                    <span className="text-muted-foreground">Hidden costs and vendor lock-in</span>
-                  </li>
-                </ul>
-              </Card>
-            </AnimatedSection>
+                <div className="flex items-start gap-4" data-testid="contact-location">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-red-500 p-3">
+                    <MapPin className="w-full h-full text-white" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900 dark:text-white mb-1">Location</p>
+                    <p className="text-gray-600 dark:text-gray-400">Global Healthcare Solutions HQ</p>
+                  </div>
+                </div>
+              </div>
 
-            <AnimatedSection>
-              <Card className="p-8 h-full border-green-500/20 bg-green-500/5">
-                <h3 className="text-2xl font-bold mb-4 text-green-600">HMSync Approach</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5" />
-                    <span className="text-muted-foreground">Fully integrated, unified platform</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5" />
-                    <span className="text-muted-foreground">Customize every workflow to your needs</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5" />
-                    <span className="text-muted-foreground">Complete ownership and control</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5" />
-                    <span className="text-muted-foreground">Modern, intuitive user experience</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5" />
-                    <span className="text-muted-foreground">Transparent pricing, no surprises</span>
-                  </li>
-                </ul>
-              </Card>
-            </AnimatedSection>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Grid */}
-      <section id="features" className="py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <AnimatedSection className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-              Everything You Need, All in One Place
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Comprehensive features designed for complete hospital management
-            </p>
-          </AnimatedSection>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, index) => (
-              <AnimatedSection key={index}>
-                <motion.div
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <Card className="p-6 h-full hover:shadow-xl transition-shadow" data-testid={`card-feature-${index}`}>
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center mb-4">
-                      <feature.icon className="h-6 w-6 text-white" />
-                    </div>
-                    <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground">{feature.description}</p>
-                  </Card>
-                </motion.div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose HMSync */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        {/* Parallax Background */}
-        <motion.div
-          style={{ y: y1 }}
-          className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10"
-        />
-        
-        <div className="max-w-6xl mx-auto relative z-10">
-          <AnimatedSection className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-              Why Choose HMSync?
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Built with your hospital's unique needs in mind
-            </p>
-          </AnimatedSection>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {whyChoose.map((item, index) => (
-              <AnimatedSection key={index}>
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <Card className="p-8 h-full bg-card/50 backdrop-blur">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <item.icon className="h-6 w-6 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                        <p className="text-muted-foreground">{item.description}</p>
-                      </div>
-                    </div>
-                  </Card>
-                </motion.div>
-              </AnimatedSection>
-            ))}
-          </div>
-
-          <AnimatedSection className="mt-16 text-center">
-            <Card className="p-8 bg-gradient-to-r from-blue-600/10 to-purple-600/10">
-              <h3 className="text-2xl font-bold mb-4">No Fixed Pricing. No Hidden Costs.</h3>
-              <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Every hospital is different. That's why we create custom solutions tailored to your size, 
-                specialty, and workflow. Contact us for a personalized quote.
-              </p>
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                data-testid="button-get-quote"
-              >
-                Get Your Custom Quote
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              <div className="mt-12 p-6 bg-white/50 dark:bg-black/20 rounded-xl">
+                <p className="text-gray-700 dark:text-gray-300 italic text-lg">
+                  "HMSync has transformed how we manage our hospital. The customization options and 
+                  real-time analytics have improved our efficiency by 40%."
+                </p>
+                <p className="text-gray-600 dark:text-gray-400 mt-4 font-semibold">
+                  - Dr. Sarah Johnson, City General Hospital
+                </p>
+              </div>
             </Card>
-          </AnimatedSection>
-        </div>
-      </section>
+          </motion.div>
 
-      {/* Contact Form */}
-      <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 bg-muted/30">
-        <div className="max-w-4xl mx-auto">
-          <AnimatedSection className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-              Request a Demo
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              See HMSync in action. We'll reach out within 24 hours to schedule your personalized demo.
-            </p>
-          </AnimatedSection>
-
-          <AnimatedSection>
-            <Card className="p-8">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <Card className="p-10 bg-white dark:bg-gray-800 border-2" data-testid="card-contact-form">
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Your Name *</label>
-                    <Input
-                      {...form.register("name")}
-                      placeholder="Dr. John Smith"
-                      className="w-full"
-                      data-testid="input-name"
-                    />
-                    {form.formState.errors.name && (
-                      <p className="text-sm text-red-500 mt-1">{form.formState.errors.name.message}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Email Address *</label>
-                    <Input
-                      {...form.register("email")}
-                      type="email"
-                      placeholder="john@hospital.com"
-                      className="w-full"
-                      data-testid="input-email"
-                    />
-                    {form.formState.errors.email && (
-                      <p className="text-sm text-red-500 mt-1">{form.formState.errors.email.message}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Hospital Name *</label>
-                    <Input
-                      {...form.register("hospitalName")}
-                      placeholder="City General Hospital"
-                      className="w-full"
-                      data-testid="input-hospital"
-                    />
-                    {form.formState.errors.hospitalName && (
-                      <p className="text-sm text-red-500 mt-1">{form.formState.errors.hospitalName.message}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Phone Number *</label>
-                    <Input
-                      {...form.register("phone")}
-                      type="tel"
-                      placeholder="+1 (555) 123-4567"
-                      className="w-full"
-                      data-testid="input-phone"
-                    />
-                    {form.formState.errors.phone && (
-                      <p className="text-sm text-red-500 mt-1">{form.formState.errors.phone.message}</p>
-                    )}
-                  </div>
-                </div>
-
                 <div>
-                  <label className="block text-sm font-medium mb-2">Message *</label>
-                  <Textarea
-                    {...form.register("message")}
-                    placeholder="Tell us about your hospital and what you're looking for..."
-                    className="w-full min-h-[120px]"
-                    data-testid="input-message"
+                  <label className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Your Name *</label>
+                  <Input
+                    {...form.register("name")}
+                    placeholder="John Doe"
+                    className="text-lg p-6 border-2 focus:border-blue-500"
+                    data-testid="input-name"
                   />
-                  {form.formState.errors.message && (
-                    <p className="text-sm text-red-500 mt-1">{form.formState.errors.message.message}</p>
+                  {form.formState.errors.name && (
+                    <p className="text-sm text-red-500 mt-2" data-testid="error-name">{form.formState.errors.name.message}</p>
                   )}
                 </div>
 
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Email Address *</label>
+                  <Input
+                    {...form.register("email")}
+                    type="email"
+                    placeholder="john@hospital.com"
+                    className="text-lg p-6 border-2 focus:border-blue-500"
+                    data-testid="input-email"
+                  />
+                  {form.formState.errors.email && (
+                    <p className="text-sm text-red-500 mt-2" data-testid="error-email">{form.formState.errors.email.message}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Hospital Name *</label>
+                  <Input
+                    {...form.register("hospitalName")}
+                    placeholder="City General Hospital"
+                    className="text-lg p-6 border-2 focus:border-blue-500"
+                    data-testid="input-hospital"
+                  />
+                  {form.formState.errors.hospitalName && (
+                    <p className="text-sm text-red-500 mt-2" data-testid="error-hospital">{form.formState.errors.hospitalName.message}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Phone Number *</label>
+                  <Input
+                    {...form.register("phone")}
+                    type="tel"
+                    placeholder="+1 (555) 123-4567"
+                    className="text-lg p-6 border-2 focus:border-blue-500"
+                    data-testid="input-phone"
+                  />
+                  {form.formState.errors.phone && (
+                    <p className="text-sm text-red-500 mt-2" data-testid="error-phone">{form.formState.errors.phone.message}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Message *</label>
+                  <Textarea
+                    {...form.register("message")}
+                    placeholder="Tell us about your hospital's needs..."
+                    className="min-h-[150px] text-lg p-6 border-2 focus:border-blue-500 resize-none"
+                    data-testid="input-message"
+                  />
+                  {form.formState.errors.message && (
+                    <p className="text-sm text-red-500 mt-2" data-testid="error-message">{form.formState.errors.message.message}</p>
+                  )}
+                </div>
+
+                <Button 
+                  type="submit" 
+                  size="lg" 
+                  className="w-full text-lg py-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-xl"
+                  data-testid="button-submit"
                 >
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                    data-testid="button-submit-contact"
-                  >
-                    Send Request
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </motion.div>
+                  Send Demo Request
+                  <ArrowRight className="ml-2" />
+                </Button>
               </form>
             </Card>
-          </AnimatedSection>
+          </motion.div>
         </div>
-      </section>
+      </div>
+    </section>
+  );
+}
 
-      {/* Footer */}
-      <footer className="bg-muted/50 border-t py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
-            <div>
-              <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-                HMSync
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                Advanced Control. Owner-First. Fully Customizable.
-              </p>
-              <p className="text-sm text-muted-foreground">
-                The complete hospital management system for modern healthcare.
-              </p>
-            </div>
-
-            <div>
-              <h4 className="font-semibold mb-4">Contact</h4>
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Mail className="h-4 w-4" />
-                  <span className="text-sm">contact@hmsync.com</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Phone className="h-4 w-4" />
-                  <span className="text-sm">+1 (555) 000-0000</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <MapPin className="h-4 w-4" />
-                  <span className="text-sm">Available Worldwide</span>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="font-semibold mb-4">Quick Links</h4>
-              <div className="space-y-2">
-                <button
-                  onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}
-                  className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  data-testid="link-features"
-                >
-                  Features
-                </button>
-                <button
-                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                  className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  data-testid="link-contact"
-                >
-                  Contact Sales
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t pt-8 text-center">
-            <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} HMSync. All rights reserved.
+function Footer() {
+  return (
+    <footer className="bg-gray-900 dark:bg-black text-white py-16">
+      <div className="container mx-auto px-6">
+        <div className="grid md:grid-cols-3 gap-12 mb-12">
+          <div>
+            <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent" data-testid="footer-brand">
+              HMSync
+            </h3>
+            <p className="text-gray-400 text-lg" data-testid="footer-description">
+              Advanced hospital management for the modern age
             </p>
           </div>
+
+          <div>
+            <h4 className="text-xl font-semibold mb-4">Contact</h4>
+            <div className="space-y-3 text-gray-400">
+              <p data-testid="footer-email">sales@hmsync.com</p>
+              <p data-testid="footer-phone">+1 (555) 123-4567</p>
+              <p data-testid="footer-location">Global Healthcare Solutions</p>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="text-xl font-semibold mb-4">Quick Links</h4>
+            <div className="space-y-3">
+              <a href="#features" className="block text-gray-400 hover:text-white transition-colors" data-testid="link-features">Features</a>
+              <a href="#contact" className="block text-gray-400 hover:text-white transition-colors" data-testid="link-contact">Contact</a>
+              <a href="#" className="block text-gray-400 hover:text-white transition-colors" data-testid="link-privacy">Privacy Policy</a>
+            </div>
+          </div>
         </div>
-      </footer>
+
+        <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
+          <p data-testid="footer-copyright">&copy; 2025 HMSync. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export default function LandingPage() {
+  return (
+    <div className="relative">
+      <ThemeToggle />
+      <HeroSection />
+      <HorizontalScrollFeatures />
+      <ImmersiveSection />
+      <WhyChooseSection />
+      <ContactSection />
+      <Footer />
     </div>
   );
 }
