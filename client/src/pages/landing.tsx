@@ -241,8 +241,8 @@ function HorizontalScrollFeatures() {
   // Second row: scroll from right (0%) to left (100%)
   const x2 = useTransform(scrollYProgress, [0.2, 0.8], ["0%", "100%"]);
 
-  // Gradient transition: starts at 0.5 and completes at 0.8 (during horizontal scroll)
-  const gradientOpacity = useTransform(scrollYProgress, [0.5, 0.8], [0, 1]);
+  // Gradient transition: starts at 0.2 and completes at 0.8 (throughout horizontal scroll)
+  const gradientOpacity = useTransform(scrollYProgress, [0.2, 0.8], [0, 1]);
 
   return (
     <section 
