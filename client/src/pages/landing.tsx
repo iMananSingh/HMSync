@@ -243,6 +243,9 @@ function HorizontalScrollFeatures() {
 
   // Gradient transition: starts at 0.2 and completes at 0.8 (throughout horizontal scroll)
   const gradientOpacity = useTransform(scrollYProgress, [0.2, 0.8], [0, 1]);
+  
+  // Text color transition: completes earlier at 0.6
+  const textWhiteOpacity = useTransform(scrollYProgress, [0.2, 0.6], [0, 1]);
 
   return (
     <section 
@@ -277,12 +280,32 @@ function HorizontalScrollFeatures() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <h2 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent" data-testid="heading-features">
+            <motion.h2 
+              style={{ 
+                color: useTransform(
+                  textWhiteOpacity,
+                  [0, 1],
+                  ['transparent', 'rgb(255, 255, 255)']
+                )
+              }}
+              className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text"
+              data-testid="heading-features"
+            >
               Powerful Features
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto" data-testid="text-features-desc">
+            </motion.h2>
+            <motion.p 
+              style={{ 
+                color: useTransform(
+                  textWhiteOpacity,
+                  [0, 1],
+                  ['rgb(75, 85, 99)', 'rgb(255, 255, 255)']
+                )
+              }}
+              className="text-lg max-w-3xl mx-auto" 
+              data-testid="text-features-desc"
+            >
               Everything you need to run a modern hospital, all in one platform
-            </p>
+            </motion.p>
           </motion.div>
         </div>
 
