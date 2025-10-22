@@ -228,7 +228,7 @@ function HorizontalScrollFeatures() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"]
+    offset: ["start end", "end start"]
   });
 
   // Split features into two rows
@@ -236,20 +236,20 @@ function HorizontalScrollFeatures() {
   const secondRow = features.slice(5, 10);
 
   // First row: scroll from left (0%) to right (-100% to show all cards)
-  const x1 = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
+  const x1 = useTransform(scrollYProgress, [0.2, 0.8], ["0%", "-100%"]);
   
   // Second row: scroll from right (0%) to left (100%)
-  const x2 = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const x2 = useTransform(scrollYProgress, [0.2, 0.8], ["0%", "100%"]);
 
   return (
     <section 
       ref={containerRef} 
       id="features" 
       className="relative bg-white dark:bg-gray-950"
-      style={{ height: "300vh" }}
+      style={{ height: "350vh" }}
     >
-      <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center py-20">
-        <div className="container mx-auto px-6 mb-12">
+      <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center py-12">
+        <div className="container mx-auto px-6 mb-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -257,35 +257,35 @@ function HorizontalScrollFeatures() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent" data-testid="heading-features">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent" data-testid="heading-features">
               Powerful Features
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto" data-testid="text-features-desc">
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto" data-testid="text-features-desc">
               Everything you need to run a modern hospital, all in one platform
             </p>
           </motion.div>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-6">
           {/* First Row - Scrolls Left to Right */}
-          <motion.div style={{ x: x1 }} className="flex gap-8 px-6">
+          <motion.div style={{ x: x1 }} className="flex gap-6 px-6">
             {firstRow.map((feature, index) => {
               const Icon = feature.icon;
               return (
                 <motion.div
                   key={`row1-${index}`}
-                  className="flex-shrink-0 w-[400px]"
+                  className="flex-shrink-0 w-[320px]"
                   whileHover={{ scale: 1.05, y: -10 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <Card className="h-full p-8 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-2 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" data-testid={`card-feature-${index}`}>
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} p-4 mb-6 shadow-lg`}>
+                  <Card className="h-full p-6 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-2 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" data-testid={`card-feature-${index}`}>
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.color} p-3 mb-4 shadow-lg`}>
                       <Icon className="w-full h-full text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white" data-testid={`text-feature-title-${index}`}>
+                    <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white" data-testid={`text-feature-title-${index}`}>
                       {feature.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed" data-testid={`text-feature-desc-${index}`}>
+                    <p className="text-gray-600 dark:text-gray-400 text-base leading-relaxed" data-testid={`text-feature-desc-${index}`}>
                       {feature.description}
                     </p>
                   </Card>
@@ -295,24 +295,24 @@ function HorizontalScrollFeatures() {
           </motion.div>
 
           {/* Second Row - Scrolls Right to Left */}
-          <motion.div style={{ x: x2 }} className="flex gap-8 px-6 justify-end">
+          <motion.div style={{ x: x2 }} className="flex gap-6 px-6 justify-end">
             {secondRow.map((feature, index) => {
               const Icon = feature.icon;
               return (
                 <motion.div
                   key={`row2-${index}`}
-                  className="flex-shrink-0 w-[400px]"
+                  className="flex-shrink-0 w-[320px]"
                   whileHover={{ scale: 1.05, y: -10 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <Card className="h-full p-8 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-2 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" data-testid={`card-feature-${index + 5}`}>
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} p-4 mb-6 shadow-lg`}>
+                  <Card className="h-full p-6 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-2 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" data-testid={`card-feature-${index + 5}`}>
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.color} p-3 mb-4 shadow-lg`}>
                       <Icon className="w-full h-full text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white" data-testid={`text-feature-title-${index + 5}`}>
+                    <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white" data-testid={`text-feature-title-${index + 5}`}>
                       {feature.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed" data-testid={`text-feature-desc-${index + 5}`}>
+                    <p className="text-gray-600 dark:text-gray-400 text-base leading-relaxed" data-testid={`text-feature-desc-${index + 5}`}>
                       {feature.description}
                     </p>
                   </Card>
