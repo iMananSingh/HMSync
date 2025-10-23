@@ -730,7 +730,7 @@ function FloatingNavbar() {
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, delay: 1 }}
-      className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50"
+      className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50"
     >
       <div className="flex items-center gap-1 px-6 py-3 rounded-full bg-white/10 dark:bg-black/10 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-2xl">
         <motion.a
