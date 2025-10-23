@@ -549,19 +549,19 @@ function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-32 bg-white dark:bg-gray-950">
+    <section id="contact" className="py-20 bg-white dark:bg-gray-950">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent" data-testid="heading-contact">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent" data-testid="heading-contact">
             Request a Demo
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto" data-testid="text-contact-desc">
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto" data-testid="text-contact-desc">
             See HMSync in action and discover how it can transform your hospital operations
           </p>
         </motion.div>
@@ -573,47 +573,47 @@ function ContactSection() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <Card className="p-10 h-full bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 border-2" data-testid="card-contact-info">
-              <h3 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white" data-testid="heading-get-in-touch">Get in Touch</h3>
+            <Card className="p-6 h-full bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 border-2" data-testid="card-contact-info">
+              <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-get-in-touch">Get in Touch</h3>
               
-              <div className="space-y-6">
-                <div className="flex items-start gap-4" data-testid="contact-email">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 p-3">
+              <div className="space-y-4">
+                <div className="flex items-start gap-3" data-testid="contact-email">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 p-2.5">
                     <Mail className="w-full h-full text-white" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900 dark:text-white mb-1">Email</p>
-                    <p className="text-gray-600 dark:text-gray-400">sales@hmsync.com</p>
+                    <p className="font-semibold text-gray-900 dark:text-white mb-1 text-sm">Email</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">sales@hmsync.com</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4" data-testid="contact-phone">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 p-3">
+                <div className="flex items-start gap-3" data-testid="contact-phone">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 p-2.5">
                     <Phone className="w-full h-full text-white" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900 dark:text-white mb-1">Phone</p>
-                    <p className="text-gray-600 dark:text-gray-400">+1 (555) 123-4567</p>
+                    <p className="font-semibold text-gray-900 dark:text-white mb-1 text-sm">Phone</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">+1 (555) 123-4567</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4" data-testid="contact-location">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-red-500 p-3">
+                <div className="flex items-start gap-3" data-testid="contact-location">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 to-red-500 p-2.5">
                     <MapPin className="w-full h-full text-white" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900 dark:text-white mb-1">Location</p>
-                    <p className="text-gray-600 dark:text-gray-400">Global Healthcare Solutions HQ</p>
+                    <p className="font-semibold text-gray-900 dark:text-white mb-1 text-sm">Location</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">Global Healthcare Solutions HQ</p>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-12 p-6 bg-white/50 dark:bg-black/20 rounded-xl">
-                <p className="text-gray-700 dark:text-gray-300 italic text-lg">
+              <div className="mt-6 p-4 bg-white/50 dark:bg-black/20 rounded-xl">
+                <p className="text-gray-700 dark:text-gray-300 italic text-sm">
                   "HMSync has transformed how we manage our hospital. The customization options and 
                   real-time analytics have improved our efficiency by 40%."
                 </p>
-                <p className="text-gray-600 dark:text-gray-400 mt-4 font-semibold">
+                <p className="text-gray-600 dark:text-gray-400 mt-3 font-semibold text-sm">
                   - Dr. Sarah Johnson, City General Hospital
                 </p>
               </div>
@@ -626,79 +626,79 @@ function ContactSection() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <Card className="p-10 bg-white dark:bg-gray-800 border-2" data-testid="card-contact-form">
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <Card className="p-6 bg-white dark:bg-gray-800 border-2" data-testid="card-contact-form">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Your Name *</label>
+                  <label className="block text-sm font-semibold mb-1.5 text-gray-900 dark:text-white">Your Name *</label>
                   <Input
                     {...form.register("name")}
                     placeholder="John Doe"
-                    className="text-lg p-6 border-2 focus:border-blue-500"
+                    className="text-base p-3 border-2 focus:border-blue-500"
                     data-testid="input-name"
                   />
                   {form.formState.errors.name && (
-                    <p className="text-sm text-red-500 mt-2" data-testid="error-name">{form.formState.errors.name.message}</p>
+                    <p className="text-sm text-red-500 mt-1" data-testid="error-name">{form.formState.errors.name.message}</p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Email Address *</label>
+                  <label className="block text-sm font-semibold mb-1.5 text-gray-900 dark:text-white">Email Address *</label>
                   <Input
                     {...form.register("email")}
                     type="email"
                     placeholder="john@hospital.com"
-                    className="text-lg p-6 border-2 focus:border-blue-500"
+                    className="text-base p-3 border-2 focus:border-blue-500"
                     data-testid="input-email"
                   />
                   {form.formState.errors.email && (
-                    <p className="text-sm text-red-500 mt-2" data-testid="error-email">{form.formState.errors.email.message}</p>
+                    <p className="text-sm text-red-500 mt-1" data-testid="error-email">{form.formState.errors.email.message}</p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Hospital Name *</label>
+                  <label className="block text-sm font-semibold mb-1.5 text-gray-900 dark:text-white">Hospital Name *</label>
                   <Input
                     {...form.register("hospitalName")}
                     placeholder="City General Hospital"
-                    className="text-lg p-6 border-2 focus:border-blue-500"
+                    className="text-base p-3 border-2 focus:border-blue-500"
                     data-testid="input-hospital"
                   />
                   {form.formState.errors.hospitalName && (
-                    <p className="text-sm text-red-500 mt-2" data-testid="error-hospital">{form.formState.errors.hospitalName.message}</p>
+                    <p className="text-sm text-red-500 mt-1" data-testid="error-hospital">{form.formState.errors.hospitalName.message}</p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Phone Number *</label>
+                  <label className="block text-sm font-semibold mb-1.5 text-gray-900 dark:text-white">Phone Number *</label>
                   <Input
                     {...form.register("phone")}
                     type="tel"
                     placeholder="+1 (555) 123-4567"
-                    className="text-lg p-6 border-2 focus:border-blue-500"
+                    className="text-base p-3 border-2 focus:border-blue-500"
                     data-testid="input-phone"
                   />
                   {form.formState.errors.phone && (
-                    <p className="text-sm text-red-500 mt-2" data-testid="error-phone">{form.formState.errors.phone.message}</p>
+                    <p className="text-sm text-red-500 mt-1" data-testid="error-phone">{form.formState.errors.phone.message}</p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Message *</label>
+                  <label className="block text-sm font-semibold mb-1.5 text-gray-900 dark:text-white">Message *</label>
                   <Textarea
                     {...form.register("message")}
                     placeholder="Tell us about your hospital's needs..."
-                    className="min-h-[150px] text-lg p-6 border-2 focus:border-blue-500 resize-none"
+                    className="min-h-[100px] text-base p-3 border-2 focus:border-blue-500 resize-none"
                     data-testid="input-message"
                   />
                   {form.formState.errors.message && (
-                    <p className="text-sm text-red-500 mt-2" data-testid="error-message">{form.formState.errors.message.message}</p>
+                    <p className="text-sm text-red-500 mt-1" data-testid="error-message">{form.formState.errors.message.message}</p>
                   )}
                 </div>
 
                 <Button 
                   type="submit" 
                   size="lg" 
-                  className="w-full text-lg py-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-xl"
+                  className="w-full text-base py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-xl"
                   data-testid="button-submit"
                 >
                   Send Demo Request
