@@ -282,11 +282,11 @@ function HorizontalScrollFeatures() {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-10" />
       </motion.div>
 
-      <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center py-12 relative z-10">
+      <div className="sticky top-0 h-screen overflow-hidden flex flex-col py-12 relative z-10">
         {/* First heading (Powerful Features) that scrolls up */}
         <motion.div 
           style={{ y: heading1Y, opacity: heading1Opacity }}
-          className="container mx-auto px-6 mb-8 absolute top-1/2 left-0 right-0 -translate-y-1/2"
+          className="container mx-auto px-6 mb-12"
         >
           <div className="text-center relative">
             <div className="relative">
@@ -328,7 +328,7 @@ function HorizontalScrollFeatures() {
         </motion.div>
 
         {/* Feature cards that fade out */}
-        <motion.div style={{ opacity: cardsOpacity }} className="space-y-6">
+        <motion.div style={{ opacity: cardsOpacity }} className="space-y-6 flex-1 flex flex-col justify-center">
           {/* First Row - Scrolls Left to Right */}
           <motion.div style={{ x: x1 }} className="flex gap-6 px-6">
             {firstRow.map((feature, index) => {
