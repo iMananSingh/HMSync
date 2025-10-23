@@ -336,18 +336,18 @@ function HorizontalScrollFeatures() {
               return (
                 <motion.div
                   key={`row1-${index}`}
-                  className="flex-shrink-0 w-[320px]"
+                  className="flex-shrink-0 w-[380px]"
                   whileHover={{ scale: 1.05, y: -10 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <Card className="h-full p-6 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-2 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" data-testid={`card-feature-${index}`}>
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.color} p-3 mb-4 shadow-lg`}>
+                  <Card className="p-5 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-2 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" data-testid={`card-feature-${index}`}>
+                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${feature.color} p-2.5 mb-3 shadow-lg`}>
                       <Icon className="w-full h-full text-white" />
                     </div>
-                    <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white" data-testid={`text-feature-title-${index}`}>
+                    <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white" data-testid={`text-feature-title-${index}`}>
                       {feature.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-base leading-relaxed" data-testid={`text-feature-desc-${index}`}>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed" data-testid={`text-feature-desc-${index}`}>
                       {feature.description}
                     </p>
                   </Card>
@@ -363,18 +363,18 @@ function HorizontalScrollFeatures() {
               return (
                 <motion.div
                   key={`row2-${index}`}
-                  className="flex-shrink-0 w-[320px]"
+                  className="flex-shrink-0 w-[380px]"
                   whileHover={{ scale: 1.05, y: -10 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <Card className="h-full p-6 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-2 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" data-testid={`card-feature-${index + 5}`}>
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.color} p-3 mb-4 shadow-lg`}>
+                  <Card className="p-5 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-2 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" data-testid={`card-feature-${index + 5}`}>
+                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${feature.color} p-2.5 mb-3 shadow-lg`}>
                       <Icon className="w-full h-full text-white" />
                     </div>
-                    <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white" data-testid={`text-feature-title-${index + 5}`}>
+                    <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white" data-testid={`text-feature-title-${index + 5}`}>
                       {feature.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-base leading-relaxed" data-testid={`text-feature-desc-${index + 5}`}>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed" data-testid={`text-feature-desc-${index + 5}`}>
                       {feature.description}
                     </p>
                   </Card>
