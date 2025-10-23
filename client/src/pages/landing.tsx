@@ -158,7 +158,7 @@ function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-7xl md:text-9xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-9xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent"
           data-testid="heading-hmsync"
         >
           HMSync
@@ -168,7 +168,7 @@ function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-3xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white max-w-4xl"
+          className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-bold mb-6 text-gray-900 dark:text-white max-w-4xl px-4"
           data-testid="heading-tagline"
         >
           Advanced Control. Owner-First.{" "}
@@ -181,7 +181,7 @@ function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl leading-relaxed"
+          className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl leading-relaxed px-4"
           data-testid="text-description"
         >
           The complete hospital management system designed for modern healthcare facilities. 
@@ -192,21 +192,21 @@ function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col sm:flex-row gap-4 mb-16"
+          className="flex flex-col sm:flex-row gap-4 mb-16 px-4"
         >
           <Button 
             size="lg" 
-            className="text-lg px-8 py-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl shadow-blue-500/50 dark:shadow-blue-400/30 group"
+            className="text-base md:text-lg px-6 md:px-8 py-5 md:py-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl shadow-blue-500/50 dark:shadow-blue-400/30 group"
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             data-testid="button-request-demo"
           >
             Request a Demo
-            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="ml-2 w-4 md:w-5 h-4 md:h-5 group-hover:translate-x-1 transition-transform" />
           </Button>
           <Button 
             size="lg" 
             variant="outline" 
-            className="text-lg px-8 py-6 border-2 bg-white/60 dark:bg-black/40 backdrop-blur-md hover:bg-white dark:hover:bg-black/60"
+            className="text-base md:text-lg px-6 md:px-8 py-5 md:py-6 border-2 bg-white/60 dark:bg-black/40 backdrop-blur-md hover:bg-white dark:hover:bg-black/60"
             onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
             data-testid="button-explore-features"
           >
@@ -269,7 +269,7 @@ function HorizontalScrollFeatures() {
       ref={containerRef} 
       id="features" 
       className="relative"
-      style={{ height: "500vh" }}
+      style={{ height: "300vh" }}
     >
       {/* Fixed gradient background that stays throughout */}
       <motion.div 
@@ -296,7 +296,7 @@ function HorizontalScrollFeatures() {
               {/* Gradient text that fades out */}
               <motion.h2 
                 style={{ opacity: textGradientOpacity }}
-                className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent"
+                className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent"
                 data-testid="heading-features"
               >
                 Powerful Features
@@ -304,7 +304,7 @@ function HorizontalScrollFeatures() {
               {/* White text that fades in */}
               <motion.h2 
                 style={{ opacity: textWhiteOpacity }}
-                className="text-4xl md:text-6xl font-bold mb-4 text-white absolute top-0 left-0 right-0"
+                className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4 text-white absolute top-0 left-0 right-0"
               >
                 Powerful Features
               </motion.h2>
@@ -314,7 +314,7 @@ function HorizontalScrollFeatures() {
               {/* Gray text that fades out */}
               <motion.p 
                 style={{ opacity: textGradientOpacity }}
-                className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto" 
+                className="text-sm md:text-base lg:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto" 
                 data-testid="text-features-desc"
               >
                 Everything you need to run a modern hospital, all in one platform
@@ -322,7 +322,7 @@ function HorizontalScrollFeatures() {
               {/* White text that fades in */}
               <motion.p 
                 style={{ opacity: textWhiteOpacity }}
-                className="text-lg text-white max-w-3xl mx-auto absolute top-0 left-0 right-0"
+                className="text-sm md:text-base lg:text-lg text-white max-w-3xl mx-auto absolute top-0 left-0 right-0"
               >
                 Everything you need to run a modern hospital, all in one platform
               </motion.p>
@@ -333,24 +333,24 @@ function HorizontalScrollFeatures() {
         {/* Feature cards that fade out */}
         <motion.div style={{ opacity: cardsOpacity }} className="space-y-6 flex-1 flex flex-col justify-center">
           {/* First Row - Scrolls Left to Right */}
-          <motion.div style={{ x: x1 }} className="flex gap-6 px-6">
+          <motion.div style={{ x: x1 }} className="flex gap-4 md:gap-6 px-4 md:px-6">
             {firstRow.map((feature, index) => {
               const Icon = feature.icon;
               return (
                 <motion.div
                   key={`row1-${index}`}
-                  className="flex-shrink-0 w-[380px]"
+                  className="flex-shrink-0 w-[280px] md:w-[340px] lg:w-[380px]"
                   whileHover={{ scale: 1.05, y: -10 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <Card className="p-5 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-2 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" data-testid={`card-feature-${index}`}>
-                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${feature.color} p-2.5 mb-3 shadow-lg`}>
+                  <Card className="p-4 md:p-5 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-2 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" data-testid={`card-feature-${index}`}>
+                    <div className={`w-8 h-8 md:w-10 md:h-10 rounded-xl bg-gradient-to-br ${feature.color} p-2 md:p-2.5 mb-3 shadow-lg`}>
                       <Icon className="w-full h-full text-white" />
                     </div>
-                    <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white" data-testid={`text-feature-title-${index}`}>
+                    <h3 className="text-base md:text-lg font-bold mb-2 text-gray-900 dark:text-white" data-testid={`text-feature-title-${index}`}>
                       {feature.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed" data-testid={`text-feature-desc-${index}`}>
+                    <p className="text-gray-600 dark:text-gray-400 text-xs md:text-sm leading-relaxed" data-testid={`text-feature-desc-${index}`}>
                       {feature.description}
                     </p>
                   </Card>
@@ -360,24 +360,24 @@ function HorizontalScrollFeatures() {
           </motion.div>
 
           {/* Second Row - Scrolls Right to Left */}
-          <motion.div style={{ x: x2 }} className="flex gap-6 px-6 justify-end">
+          <motion.div style={{ x: x2 }} className="flex gap-4 md:gap-6 px-4 md:px-6 justify-end">
             {secondRow.map((feature, index) => {
               const Icon = feature.icon;
               return (
                 <motion.div
                   key={`row2-${index}`}
-                  className="flex-shrink-0 w-[380px]"
+                  className="flex-shrink-0 w-[280px] md:w-[340px] lg:w-[380px]"
                   whileHover={{ scale: 1.05, y: -10 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <Card className="p-5 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-2 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" data-testid={`card-feature-${index + 5}`}>
-                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${feature.color} p-2.5 mb-3 shadow-lg`}>
+                  <Card className="p-4 md:p-5 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-2 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" data-testid={`card-feature-${index + 5}`}>
+                    <div className={`w-8 h-8 md:w-10 md:h-10 rounded-xl bg-gradient-to-br ${feature.color} p-2 md:p-2.5 mb-3 shadow-lg`}>
                       <Icon className="w-full h-full text-white" />
                     </div>
-                    <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white" data-testid={`text-feature-title-${index + 5}`}>
+                    <h3 className="text-base md:text-lg font-bold mb-2 text-gray-900 dark:text-white" data-testid={`text-feature-title-${index + 5}`}>
                       {feature.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed" data-testid={`text-feature-desc-${index + 5}`}>
+                    <p className="text-gray-600 dark:text-gray-400 text-xs md:text-sm leading-relaxed" data-testid={`text-feature-desc-${index + 5}`}>
                       {feature.description}
                     </p>
                   </Card>
@@ -393,14 +393,14 @@ function HorizontalScrollFeatures() {
           className="absolute inset-0 flex items-center justify-center px-6"
         >
           <div className="text-center max-w-5xl">
-            <h2 className="text-6xl md:text-8xl font-bold mb-8 text-white" data-testid="heading-immersive">
+            <h2 className="text-4xl md:text-6xl lg:text-8xl font-bold mb-8 text-white" data-testid="heading-immersive">
               Redefining{" "}
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                 Healthcare
               </span>
               {" "}Management
             </h2>
-            <p className="text-2xl md:text-3xl text-gray-300 leading-relaxed mb-12" data-testid="text-immersive-desc">
+            <p className="text-lg md:text-2xl lg:text-3xl text-gray-300 leading-relaxed mb-12" data-testid="text-immersive-desc">
               Bringing everything together in one powerful, customizable platform. 
               Unified workflows, real-time insights, and complete control.
             </p>
@@ -456,24 +456,24 @@ function WhyChooseSection() {
   ];
 
   return (
-    <section id="why-choose" className="py-32 bg-gray-50 dark:bg-gray-900">
-      <div className="container mx-auto px-6">
+    <section id="why-choose" className="py-16 md:py-24 lg:py-32 bg-gray-50 dark:bg-gray-900">
+      <div className="container mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-16 lg:mb-20"
         >
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-why-choose">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 text-gray-900 dark:text-white" data-testid="heading-why-choose">
             Why Choose <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">HMSync</span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto" data-testid="text-why-choose-desc">
+          <p className="text-base md:text-lg lg:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto px-4" data-testid="text-why-choose-desc">
             Built for hospital owners who demand excellence and control
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
           {whyChoose.map((item, index) => {
             const Icon = item.icon;
             return (
@@ -485,14 +485,14 @@ function WhyChooseSection() {
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.02, y: -5 }}
               >
-                <Card className="p-10 h-full bg-white dark:bg-gray-800 border-2 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" data-testid={`card-why-${index}`}>
-                  <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${item.gradient} p-4 mb-6 shadow-lg`}>
+                <Card className="p-6 md:p-8 lg:p-10 h-full bg-white dark:bg-gray-800 border-2 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl" data-testid={`card-why-${index}`}>
+                  <div className={`w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-2xl bg-gradient-to-br ${item.gradient} p-3 md:p-4 mb-4 md:mb-6 shadow-lg`}>
                     <Icon className="w-full h-full text-white" />
                   </div>
-                  <h3 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white" data-testid={`text-why-title-${index}`}>
+                  <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 text-gray-900 dark:text-white" data-testid={`text-why-title-${index}`}>
                     {item.title}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed" data-testid={`text-why-desc-${index}`}>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base lg:text-lg leading-relaxed" data-testid={`text-why-desc-${index}`}>
                     {item.description}
                   </p>
                 </Card>
@@ -506,16 +506,16 @@ function WhyChooseSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="mt-16 text-center"
+          className="mt-12 md:mt-16 text-center"
         >
-          <Card className="p-12 bg-gradient-to-br from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white max-w-4xl mx-auto shadow-2xl" data-testid="card-custom-quote">
-            <h3 className="text-4xl font-bold mb-4" data-testid="heading-custom-pricing">Get Custom Pricing</h3>
-            <p className="text-xl mb-8 opacity-90" data-testid="text-custom-pricing-desc">
+          <Card className="p-6 md:p-10 lg:p-12 bg-gradient-to-br from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white max-w-4xl mx-auto shadow-2xl" data-testid="card-custom-quote">
+            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4" data-testid="heading-custom-pricing">Get Custom Pricing</h3>
+            <p className="text-base md:text-lg lg:text-xl mb-6 md:mb-8 opacity-90" data-testid="text-custom-pricing-desc">
               Every hospital is unique. Let's discuss your specific needs and create a tailored solution.
             </p>
             <Button 
               size="lg" 
-              className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-6"
+              className="bg-white text-blue-600 hover:bg-gray-100 text-base md:text-lg px-6 md:px-8 py-5 md:py-6"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               data-testid="button-contact-sales"
             >
@@ -552,32 +552,32 @@ function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-white dark:bg-gray-950">
-      <div className="container mx-auto px-6">
+    <section id="contact" className="py-12 md:py-16 lg:py-20 bg-white dark:bg-gray-950">
+      <div className="container mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-12"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent" data-testid="heading-contact">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent" data-testid="heading-contact">
             Request a Demo
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto" data-testid="text-contact-desc">
+          <p className="text-sm md:text-base lg:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto px-4" data-testid="text-contact-desc">
             See HMSync in action and discover how it can transform your hospital operations
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <Card className="p-6 h-full bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 border-2" data-testid="card-contact-info">
-              <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-get-in-touch">Get in Touch</h3>
+            <Card className="p-5 md:p-6 h-full bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 border-2" data-testid="card-contact-info">
+              <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-gray-900 dark:text-white" data-testid="heading-get-in-touch">Get in Touch</h3>
               
               <div className="space-y-4">
                 <div className="flex items-start gap-3" data-testid="contact-email">
@@ -629,7 +629,7 @@ function ContactSection() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <Card className="p-6 bg-white dark:bg-gray-800 border-2" data-testid="card-contact-form">
+            <Card className="p-5 md:p-6 bg-white dark:bg-gray-800 border-2" data-testid="card-contact-form">
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <div>
                   <label className="block text-sm font-semibold mb-1.5 text-gray-900 dark:text-white">Your Name *</label>
@@ -791,21 +791,21 @@ function FloatingNavbar() {
 
 function Footer() {
   return (
-    <footer className="bg-gray-900 dark:bg-black text-white py-16">
-      <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
+    <footer className="bg-gray-900 dark:bg-black text-white py-12 md:py-16">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="grid md:grid-cols-3 gap-8 md:gap-10 lg:gap-12 mb-8 md:mb-12">
           <div>
-            <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent" data-testid="footer-brand">
+            <h3 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent" data-testid="footer-brand">
               HMSync
             </h3>
-            <p className="text-gray-400 text-lg" data-testid="footer-description">
+            <p className="text-gray-400 text-base md:text-lg" data-testid="footer-description">
               Advanced hospital management for the modern age
             </p>
           </div>
 
           <div>
-            <h4 className="text-xl font-semibold mb-4">Contact</h4>
-            <div className="space-y-3 text-gray-400">
+            <h4 className="text-lg md:text-xl font-semibold mb-3 md:mb-4">Contact</h4>
+            <div className="space-y-2 md:space-y-3 text-gray-400 text-sm md:text-base">
               <p data-testid="footer-email">sales@hmsync.com</p>
               <p data-testid="footer-phone">+1 (555) 123-4567</p>
               <p data-testid="footer-location">Global Healthcare Solutions</p>
@@ -813,8 +813,8 @@ function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xl font-semibold mb-4">Quick Links</h4>
-            <div className="space-y-3">
+            <h4 className="text-lg md:text-xl font-semibold mb-3 md:mb-4">Quick Links</h4>
+            <div className="space-y-2 md:space-y-3 text-sm md:text-base">
               <a href="#features" className="block text-gray-400 hover:text-white transition-colors" data-testid="link-features">Features</a>
               <a href="#contact" className="block text-gray-400 hover:text-white transition-colors" data-testid="link-contact">Contact</a>
               <a href="#" className="block text-gray-400 hover:text-white transition-colors" data-testid="link-privacy">Privacy Policy</a>
@@ -822,7 +822,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
+        <div className="border-t border-gray-800 pt-6 md:pt-8 text-center text-gray-400 text-sm md:text-base">
           <p data-testid="footer-copyright">&copy; 2025 HMSync. All rights reserved.</p>
         </div>
       </div>
