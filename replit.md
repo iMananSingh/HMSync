@@ -29,6 +29,15 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+**October 23, 2025** - Mobile-Friendly Floating Navbar
+- Updated FloatingNavbar component to be fully responsive
+- Navigation items now hidden on mobile/tablet (< lg breakpoint)
+- Only HMSync brand and Request Demo button visible on small screens
+- Reduced padding and sizing for better mobile experience
+- Added horizontal padding to prevent edge overlap
+- Maintained glassmorphic design and smooth animations
+- Architect-reviewed and approved for all screen sizes
+
 **October 22, 2025** - Premium Design Overhaul
 - Redesigned entire landing page with high-end parallax effects inspired by premium portfolio sites
 - Implemented full-screen hero section with multi-layer parallax scrolling
@@ -129,7 +138,17 @@ The landing page is a single-page React 18 application built with TypeScript. It
 - Quick links
 - Copyright information
 
-**7. Theme Toggle**
+**7. Floating Navbar**
+- Fixed position at bottom with responsive margin (bottom-4 on mobile, bottom-8 on desktop)
+- Glassmorphic design with backdrop blur
+- HMSync brand name (always visible)
+- Navigation links (Features, Benefits, Demo, Pricing, Testimonials) - hidden on mobile, visible on desktop
+- Request Demo CTA button (always visible)
+- Smooth slide-up entrance animation with 1-second delay
+- Mobile-optimized with reduced padding and font sizes
+- Responsive breakpoints for different screen sizes
+
+**8. Theme Toggle**
 - Fixed position in top-right corner
 - Sun/moon icon transition
 - Smooth theme switching
