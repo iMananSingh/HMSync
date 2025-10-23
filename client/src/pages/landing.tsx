@@ -730,14 +730,14 @@ function FloatingNavbar() {
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, delay: 1 }}
-      className="fixed bottom-8 left-0 right-0 z-50 flex justify-center"
+      className="fixed bottom-4 md:bottom-8 left-0 right-0 z-50 flex justify-center px-4"
     >
-      <div className="flex items-center gap-1 px-6 py-3 rounded-full bg-white/10 dark:bg-black/10 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-2xl">
+      <div className="flex items-center gap-1 px-4 md:px-6 py-2.5 md:py-3 rounded-full bg-white/10 dark:bg-black/10 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-2xl max-w-full">
         <motion.a
           href="#"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="px-4 py-2 font-bold text-lg bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent hover:from-blue-700 hover:to-purple-700 dark:hover:from-blue-300 dark:hover:to-purple-300 transition-all"
+          className="px-2 md:px-4 py-2 font-bold text-base md:text-lg bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent hover:from-blue-700 hover:to-purple-700 dark:hover:from-blue-300 dark:hover:to-purple-300 transition-all whitespace-nowrap"
           onClick={(e) => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: "smooth" });
@@ -746,33 +746,35 @@ function FloatingNavbar() {
           HMSync
         </motion.a>
         
-        <div className="h-6 w-px bg-white/20 dark:bg-white/10 mx-2" />
+        <div className="h-6 w-px bg-white/20 dark:bg-white/10 mx-1 md:mx-2" />
         
-        {navItems.map((item, index) => (
-          <motion.a
-            key={index}
-            href={item.href}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300"
-            onClick={(e) => {
-              e.preventDefault();
-              const target = document.querySelector(item.href);
-              if (target) {
-                target.scrollIntoView({ behavior: "smooth" });
-              }
-            }}
-          >
-            {item.label}
-          </motion.a>
-        ))}
-        
-        <div className="h-6 w-px bg-white/20 dark:bg-white/10 mx-2" />
+        <div className="hidden lg:flex items-center gap-1">
+          {navItems.map((item, index) => (
+            <motion.a
+              key={index}
+              href={item.href}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300"
+              onClick={(e) => {
+                e.preventDefault();
+                const target = document.querySelector(item.href);
+                if (target) {
+                  target.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+            >
+              {item.label}
+            </motion.a>
+          ))}
+          
+          <div className="h-6 w-px bg-white/20 dark:bg-white/10 mx-2" />
+        </div>
         
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="px-5 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg transition-all duration-300"
+          className="px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm font-semibold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg transition-all duration-300 whitespace-nowrap"
           onClick={() => {
             const target = document.querySelector("#contact");
             if (target) {
