@@ -236,40 +236,45 @@ function HorizontalScrollFeatures() {
   const secondRow = features.slice(5, 10);
 
   // First row: scroll from left (0%) to right (-100% to show all cards)
-  const x1 = useTransform(scrollYProgress, [0.2, 0.6], ["0%", "-100%"]);
+  const x1 = useTransform(scrollYProgress, [0.15, 0.45], ["0%", "-100%"]);
   
   // Second row: scroll from right (0%) to left (100%)
-  const x2 = useTransform(scrollYProgress, [0.2, 0.6], ["0%", "100%"]);
+  const x2 = useTransform(scrollYProgress, [0.15, 0.45], ["0%", "100%"]);
 
-  // Gradient transition: fades in at start of scroll, stays during scroll, fades out at end
-  const gradientOpacity = useTransform(scrollYProgress, [0.2, 0.6, 0.85, 1], [0, 1, 1, 0]);
+  // Gradient stays visible throughout
+  const gradientOpacity = useTransform(scrollYProgress, [0.15, 0.45, 0.85, 1], [0, 1, 1, 0]);
   
-  // Text gradient fade out: starts at 0.4 and completes at 0.55
-  const textGradientOpacity = useTransform(scrollYProgress, [0.4, 0.55], [1, 0]);
+  // Text gradient fade out: starts at 0.3 and completes at 0.4
+  const textGradientOpacity = useTransform(scrollYProgress, [0.3, 0.4], [1, 0]);
   
-  // Text white fade in: starts at 0.4 and completes at 0.55
-  const textWhiteOpacity = useTransform(scrollYProgress, [0.4, 0.55], [0, 1]);
+  // Text white fade in: starts at 0.3 and completes at 0.4
+  const textWhiteOpacity = useTransform(scrollYProgress, [0.3, 0.4], [0, 1]);
 
   // Feature cards fade out after horizontal scroll completes
-  const cardsOpacity = useTransform(scrollYProgress, [0.6, 0.75], [1, 0]);
+  const cardsOpacity = useTransform(scrollYProgress, [0.45, 0.55], [1, 0]);
 
-  // Heading moves up after horizontal scroll completes
-  const headingY = useTransform(scrollYProgress, [0.6, 0.85], ["0vh", "-100vh"]);
+  // First heading moves up and fades out
+  const heading1Y = useTransform(scrollYProgress, [0.45, 0.65], ["0vh", "-50vh"]);
+  const heading1Opacity = useTransform(scrollYProgress, [0.45, 0.55], [1, 0]);
+
+  // Second heading (immersive section) comes up from below
+  const heading2Y = useTransform(scrollYProgress, [0.55, 0.75], ["100vh", "0vh"]);
+  const heading2Opacity = useTransform(scrollYProgress, [0.55, 0.65], [0, 1]);
 
   return (
     <section 
       ref={containerRef} 
       id="features" 
       className="relative"
-      style={{ height: "400vh" }}
+      style={{ height: "500vh" }}
     >
-      {/* Fixed gradient background that fades in and out with scroll */}
+      {/* Fixed gradient background that stays throughout */}
       <motion.div 
         style={{ opacity: gradientOpacity }} 
         className="fixed inset-0 bg-gradient-to-br from-blue-950 via-purple-950 to-pink-950 pointer-events-none" 
       />
       
-      {/* Grid pattern overlay - fixed, fades with background */}
+      {/* Grid pattern overlay - fixed, stays with background */}
       <motion.div 
         style={{ opacity: useTransform(gradientOpacity, [0, 1], [0, 0.2]) }} 
         className="fixed inset-0 pointer-events-none"
@@ -278,10 +283,10 @@ function HorizontalScrollFeatures() {
       </motion.div>
 
       <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center py-12 relative z-10">
-        {/* Heading that scrolls up */}
+        {/* First heading (Powerful Features) that scrolls up */}
         <motion.div 
-          style={{ y: headingY }}
-          className="container mx-auto px-6 mb-8"
+          style={{ y: heading1Y, opacity: heading1Opacity }}
+          className="container mx-auto px-6 mb-8 absolute top-1/2 left-0 right-0 -translate-y-1/2"
         >
           <div className="text-center relative">
             <div className="relative">
@@ -378,61 +383,46 @@ function HorizontalScrollFeatures() {
             })}
           </motion.div>
         </motion.div>
+
+        {/* Second heading (Immersive content) that comes up from below */}
+        <motion.div 
+          style={{ y: heading2Y, opacity: heading2Opacity }}
+          className="absolute inset-0 flex items-center justify-center px-6"
+        >
+          <div className="text-center max-w-5xl">
+            <h2 className="text-6xl md:text-8xl font-bold mb-8 text-white" data-testid="heading-immersive">
+              Redefining{" "}
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Healthcare
+              </span>
+              {" "}Management
+            </h2>
+            <p className="text-2xl md:text-3xl text-gray-300 leading-relaxed mb-12" data-testid="text-immersive-desc">
+              Bringing everything together in one powerful, customizable platform. 
+              Unified workflows, real-time insights, and complete control.
+            </p>
+            <div className="flex flex-wrap justify-center gap-6 text-gray-400">
+              <div className="flex items-center gap-2" data-testid="feature-unified">
+                <CheckCircle2 className="w-6 h-6 text-blue-400" />
+                <span className="text-lg">Fully Integrated Platform</span>
+              </div>
+              <div className="flex items-center gap-2" data-testid="feature-realtime">
+                <CheckCircle2 className="w-6 h-6 text-purple-400" />
+                <span className="text-lg">Real-Time Updates</span>
+              </div>
+              <div className="flex items-center gap-2" data-testid="feature-scalable">
+                <CheckCircle2 className="w-6 h-6 text-pink-400" />
+                <span className="text-lg">Infinitely Scalable</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
 }
 
-function ImmersiveSection() {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
 
-  // Content scrolls up from below
-  const y = useTransform(scrollYProgress, [0, 0.5], ["100vh", "0vh"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 1]);
-
-  return (
-    <section ref={ref} className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-950 via-purple-950 to-pink-950">
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-10" />
-      </div>
-      <motion.div 
-        style={{ y, opacity }}
-        className="relative z-10 text-center px-6 max-w-5xl"
-      >
-        <h2 className="text-6xl md:text-8xl font-bold mb-8 text-white" data-testid="heading-immersive">
-          Redefining{" "}
-          <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            Healthcare
-          </span>
-          {" "}Management
-        </h2>
-        <p className="text-2xl md:text-3xl text-gray-300 leading-relaxed mb-12" data-testid="text-immersive-desc">
-          Bringing everything together in one powerful, customizable platform. 
-          Unified workflows, real-time insights, and complete control.
-        </p>
-        <div className="flex flex-wrap justify-center gap-6 text-gray-400">
-          <div className="flex items-center gap-2" data-testid="feature-unified">
-            <CheckCircle2 className="w-6 h-6 text-blue-400" />
-            <span className="text-lg">Fully Integrated Platform</span>
-          </div>
-          <div className="flex items-center gap-2" data-testid="feature-realtime">
-            <CheckCircle2 className="w-6 h-6 text-purple-400" />
-            <span className="text-lg">Real-Time Updates</span>
-          </div>
-          <div className="flex items-center gap-2" data-testid="feature-scalable">
-            <CheckCircle2 className="w-6 h-6 text-pink-400" />
-            <span className="text-lg">Infinitely Scalable</span>
-          </div>
-        </div>
-      </motion.div>
-    </section>
-  );
-}
 
 function WhyChooseSection() {
   const whyChoose = [
@@ -770,7 +760,6 @@ export default function LandingPage() {
       <ThemeToggle />
       <HeroSection />
       <HorizontalScrollFeatures />
-      <ImmersiveSection />
       <WhyChooseSection />
       <ContactSection />
       <Footer />
